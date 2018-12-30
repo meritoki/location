@@ -5,61 +5,29 @@
  */
 var relational = require('../../model/relational.js');
 var properties = require('../properties.js');
+var http = require('http');
 
-
-
-
-exports.postIDDonor = function(req, res, next) {
-  var id = req.body.idDonor;
-  console.log(req.body);
-  relational.getDonor(id, function (error, location) {
+exports.postLocation = function(req, res, next) {
+  var location = req.body;
+  console.log(location);
+  relational.setLocation(location, function (error, boolean) {
     if (error) {
-      res.end(JSON.stringify(error));
+      console.log(error);
+      var status = 500;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
-      res.end(JSON.stringify(location));
+      res.end(JSON.stringify(boolean));
     }
   });
-};
+}
 
-exports.postIDAgent = function(req, res, next) {
-  var id = req.body.idAgent;
-  relational.getAgent(id, function (error, location) {
+exports.postIDLocation = function(req, res, next) {
+  var user = req.body;
+  relational.getLocation(user, function (error, location) {
     if (error) {
-      res.end(error);
-    } else {
-      res.end(JSON.stringify(location));
-    }
-  });
-};
-
-exports.postIDMerchant = function(req, res, next) {
-  var id = req.body.idMerchant;
-  relational.getMerchant(id, function (error, location) {
-    if (error) {
-      res.end(error);
-    } else {
-      res.end(JSON.stringify(location));
-    }
-  });
-};
-
-exports.postIDCustomer = function(req, res, next) {
-  var id = req.body.idCustomer;
-  relational.getCustomer(id, function (error, location) {
-    if (error) {
-      res.end(error);
-    } else {
-      res.end(JSON.stringify(location));
-    }
-  });
-};
-
-exports.postIDConsumer = function(req, res, next) {
-  var id = req.body.idConsumer;
-  console.log(req.body);
-  relational.getConsumer(id, function (error, location) {
-    if (error) {
-      res.end(JSON.stringify(error));
+      console.log(error);
+      var status = 500;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
       res.end(JSON.stringify(location));
     }

@@ -11,10 +11,6 @@ exports.get = function(router) {
 
 exports.post = function(router) {
   console.log('service.path.post()');
-
-  router.post("/v1/location/donor/id", location.postIDDonor);
-  router.post("/v1/location/consumer/id", location.postIDConsumer);
-  router.post("/v1/location/merchant/id", location.postIDMerchant);
-  router.post("/v1/location/customer/id", location.postIDCustomer);
-  router.post("/v1/location/agent/id", location.postIDAgent);
+  router.post("/v1/location/id", location.postIDLocation);
+  router.post("/v1/location", location.postLocation);
 };

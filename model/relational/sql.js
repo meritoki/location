@@ -1,18 +1,14 @@
-exports.selectNameUser = function (name) {
-    return 'SELECT u.id, u.idAccount, u.name, u.password, u.registerDate, u.activityDate, u.login, u.role, e.address AS email FROM auth.User u LEFT OUTER JOIN msg.Email e ON e.idUser=u.id WHERE name = \'' + name + '\';';
-};
-
-
-exports.selectUser = function (idUser) {
-  return  'SELECT `user`.id AS idUser, agent.id AS idAgent, merchant.id AS idMerchant,consumer.id AS idConsumer,customer.id AS idCustomer,donor.id AS idDonor '+
-          'From auth.`User` `user` '+
-          'LEFT OUTER JOIN `user`.Agent agent ON `user`.id = agent.idUser '+
-          'LEFT OUTER JOIN `user`.Merchant merchant ON `user`.id = merchant.idUser '+
-          'LEFT OUTER JOIN `user`.Consumer consumer ON `user`.id = consumer.idUser '+
-          'LEFT OUTER JOIN `user`.Customer customer ON `user`.id = customer.idUser '+
-          'LEFT OUTER JOIN `user`.Donor donor ON `user`.id = donor.idUser '+
-          'WHERE user.id = '+idUser+';'
-};
+exports.selectLocation = function(user) {
+  var sql = "";
+  if(user.idConsumer != null) {
+    sql += this.selectConsumerLocation(user.idConsumer);
+  } else if(user.idDonor != null) {
+    sql += this.selectDonorLocation(user.idDonor);
+  } else if(user.idAgent != null) {
+    sql += this.selectAgentLocation(user.idAgent);
+  }
+  return sql;
+}
 
 exports.selectConsumerLocation = function(idConsumer) {
   return 'SELECT consumerLocation.idConsumer, location.id AS idLocation, location.addressOne, location.addressTwo, location.addressThree, location.city, location.zipCode '+
@@ -47,4 +43,19 @@ exports.selectCustomerLocation = function(idCustomer) {
          'FROM location.CustomerLocation customerLocation '+
          'LEFT OUTER JOIN location.Location location ON location.id = customerLocation.idLocation '+
          'WHERE customerLocation.idCustomer ='+idCustomer+';';
+}
+
+exports.insertLocation = function(location) {
+  var sql = "INSERT INTO location.Location (addressOne,city,zipCode) VALUES (\""+location.addressOne+"\",\""+location.city+"\", \""+location.zipCode+"\");"+
+         "SET @idLocation = LAST_INSERT_ID(); "
+         if(location.idDonor != undefined) {
+           sql+="INSERT INTO location.DonorLocation(idDonor,idLocation) VALUES ("+location.idDonor+",@idLocation);"
+        } else if (location.idAgent != undefined) {
+          sql+="INSERT INTO location.AgentLocation(idAgent,idLocation) VALUES ("+location.idAgent+",@idLocation);"
+        } else if (location.idConsumer != undefined) {
+          sql+="INSERT INTO location.ConsumerLocation(idConsumer,idLocation) VALUES ("+location.idConsumer+",@idLocation);"
+        }
+         sql+="COMMIT;"
+
+         return sql;
 }
