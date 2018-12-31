@@ -17,10 +17,10 @@ exports.setLocation = function(location, callback) {
   }
 };
 
-exports.getLocation = function(id, callback) {
-  if (typeof id !== "undefined") {
-    database.getQueryResult(sql.selectLocation(id), function(err, result) {
-      u = null;
+exports.getLocation = function(user, callback) {
+  if (typeof user !== "undefined") {
+    database.getQueryResult(sql.selectLocation(user), function(err, result) {
+      var l = null;
       if (result !== undefined && result != null && result.length > 0) {
         l = new location();
         l.idUser = result[0].idUser;
