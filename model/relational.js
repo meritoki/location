@@ -18,9 +18,9 @@ exports.setLocation = function(location, callback) {
 };
 
 exports.getLocation = function(user, callback) {
-  if (typeof user !== "undefined") {
+  if (valid(user)) {
     database.getQueryResult(sql.selectLocation(user), function(err, result) {
-      var l = null;
+      var l = new location();
       if (result !== undefined && result != null && result.length > 0) {
         l = new location();
         l.idUser = result[0].idUser;
@@ -33,13 +33,21 @@ exports.getLocation = function(user, callback) {
         l.addressOne = result[0].addressOne;
         l.city = result[0].city;
         l.zipCode = result[0].zipCode;
-        console.log(l);
-      } else {
-        return callback(new Error("id is null"), null);
       }
-      return callback(err, l);
+      return callback(null, l);
     });
   } else {
-    return callback(new Error("typeof name === \"undefined\""), null);
+    return callback(new Error("user not valid"), null);
   }
+};
+
+var valid = function(value) {
+  var boolean = true;
+  if (typeof value === "undefined") {
+    boolean = false;
+  }
+  if(value == null) {
+    boolean = false;
+  }
+  return boolean;
 };
