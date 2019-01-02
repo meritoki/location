@@ -49,5 +49,11 @@ var valid = function(value) {
   if(value == null) {
     boolean = false;
   }
+  if(value === undefined) {
+    boolean = false;
+  }
+  if(value == ""){
+    boolean = false;
+  }
   return boolean;
 };
