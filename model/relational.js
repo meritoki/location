@@ -52,8 +52,5 @@ var valid = function(value) {
   if(value === undefined) {
     boolean = false;
   }
-  if(value == ""){
-    boolean = false;
-  }
   return boolean;
 };

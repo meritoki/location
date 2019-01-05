@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "30977f09-7541-490d-ab27-bb3cd9448ea5",
+		"name": "daily-bread-location-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3002/v1/location/id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0fac5bd-7f29-4ab5-b086-787322cbe7ae",
+						"exec": [
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"// example using pm.response.to.be*",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idConsumer",
+							"value": "1\n",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3002/v1/location/id",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"v1",
+						"location",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3002/v1/location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93b1fdb8-a259-4a03-9d03-1d9053e0ea60",
+						"exec": [
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"// example using pm.response.to.be*",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idDonor",
+							"value": "2\n",
+							"type": "text"
+						},
+						{
+							"key": "addressOne",
+							"value": "123 Fake Street",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Blue Bell\n",
+							"type": "text"
+						},
+						{
+							"key": "zipCode",
+							"value": "19422",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "PA",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "United States",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3002/v1/location",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"v1",
+						"location"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
