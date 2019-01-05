@@ -16,7 +16,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
-        sh 'rm -r location'
+        sh 'rm -rf location'
         sh 'git clone https://github.com/meritoki/location.git'
         sh 'cd location'
         sh 'git checkout dev'
