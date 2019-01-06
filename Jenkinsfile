@@ -17,9 +17,9 @@ pipeline {
       steps {
         sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
         sh 'rm -rf location'
-	sh 'git clone https://github.com/meritoki/location.git'
+        sh 'git clone https://github.com/meritoki/location.git'
         sh 'cd location'
-	sh 'git remote update'
+        sh 'git remote update'
         sh 'git fetch'
         sh 'git branch -a'
         sh 'git status'
