@@ -16,7 +16,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
-        sh 'rm -r location'
+        sh 'rm -rf location'
 	sh 'git clone https://github.com/meritoki/location.git'
         sh 'cd location'
 	sh 'git remote update'
@@ -27,6 +27,8 @@ pipeline {
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/location-service'
       }
     }
-
+  }
+  triggers {
+    cron('H/15 * * * *')
   }
 }
