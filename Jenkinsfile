@@ -19,10 +19,10 @@ pipeline {
         sh 'rm -rf location'
         sh 'git clone https://github.com/meritoki/location.git'
         sh 'cd location'
-        sh 'git remote update'
-        sh 'git fetch'
         sh 'git branch -a'
         sh 'git status'
+        sh 'docker stop auth-service || true && docker rm auth-service || true'
+        sh 'docker rmi $(docker images |grep \'dailybread/auth-service\') || true'
         sh 'docker build -t dailybread/location-service .'
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/location-service'
       }
